@@ -14,6 +14,7 @@ class pembayaran extends CI_Controller {
 			$d['mark_pembayaran'] = "active";
 			$d['mark_jenis_cetakan'] = "";
 			$d['mark_jenis_satuan'] = "";
+			$d['mark_belum_lunas'] = "";
 			
 			$d['dt_retrieve'] = $this->app_load_data_model->indexs_data_pembayaran($GLOBALS['site_limit_medium'],$uri);
 			
@@ -40,6 +41,7 @@ class pembayaran extends CI_Controller {
 			$d['mark_pembayaran'] = "active";
 			$d['mark_jenis_cetakan'] = "";
 			$d['mark_jenis_satuan'] = "";
+			$d['mark_belum_lunas'] = "";
 			
 			$get = $this->db->select("*")->join("dlmbg_pemesanan","dlmbg_pemesanan.kode_pemesanan=dlmbg_pembayaran.kode_pemesanan")->get_where("dlmbg_pembayaran",array("kode_pembayaran"=>$id_param))->row();
 			
@@ -104,6 +106,7 @@ class pembayaran extends CI_Controller {
 			$d['mark_pembayaran'] = "active";
 			$d['mark_jenis_cetakan'] = "";
 			$d['mark_jenis_satuan'] = "";
+			$d['mark_belum_lunas'] = "";
 			
 			$get = $this->db->get_where("dlmbg_pembayaran",array("kode_pemesanan"=>$id_param))->row();
 			
@@ -169,6 +172,21 @@ class pembayaran extends CI_Controller {
 			$this->session->unset_userdata('jumlah_harga');
 			$this->cart->destroy();
 			redirect("dashboard/pembayaran/edit/".$id['kode_pembayaran']."/".$id['kode_pemesanan']."");
+		}
+		else
+		{
+			redirect("login");
+		}
+	}
+
+	function set()
+	{
+		if($this->session->userdata("logged_in")!="")
+		{
+			$set['key'] = $_POST['key'];
+			$set['key_search'] = $_POST['key_search'];
+			$this->session->set_userdata($set);
+			redirect("dashboard/pembayaran");
 		}
 		else
 		{

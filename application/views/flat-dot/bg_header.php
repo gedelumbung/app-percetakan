@@ -62,6 +62,16 @@
 					<ul class="nav pull-right">
 						<li class="dropdown">
 							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+								<i class="halflings-icon white wrench"></i> Utility
+								<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu">
+								<li><a href="<?php echo base_url(); ?>dashboard/backup"><i class="halflings-icon white tasks"></i> Backup</a></li>
+								<li><a href="<?php echo base_url(); ?>dashboard/restore"><i class="halflings-icon white tasks"></i> Restore</a></li>
+							</ul>
+						</li>
+						<li class="dropdown">
+							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 								<i class="halflings-icon white wrench"></i> Karyawan
 								<span class="caret"></span>
 							</a>

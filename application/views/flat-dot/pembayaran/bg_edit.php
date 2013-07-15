@@ -1,4 +1,12 @@
-
+<script type="text/javascript">
+function hitSisa()
+{
+	var total = document.getElementById("jumlah_harga").value;
+	var bayar = document.getElementById("bayar").value;
+	var sisa = eval(bayar-total);
+	document.frm_pesan.kembalian.value = sisa;
+}
+</script>
 	<div id="content" class="span11">
 	<div class="row-fluid sortable">		
 		<div class="box span12">
@@ -7,7 +15,7 @@
 				Form Pembayaran</h2>
 			</div>
 			<div class="box-content">
-				<?php echo form_open("dashboard/pembayaran/simpan",'class="form-horizontal"'); ?>
+				<?php echo form_open("dashboard/pembayaran/simpan",'class="form-horizontal" name="frm_pesan" '); ?>
 				  <fieldset>
 				  
 					<div class="control-group">
@@ -98,7 +106,14 @@
 					<div class="control-group">
 					  <label class="control-label"> Bayar</label>
 					  <div class="controls">
-						<input type="text" class="input-xlarge" id="bayar" value="<?php echo $bayar; ?>" name="bayar" required />
+						<input type="text" class="input-xlarge" id="bayar" onChange=hitSisa(); value="<?php echo $bayar; ?>" name="bayar" required />
+					  </div>
+					</div>
+				  
+					<div class="control-group">
+					  <label class="control-label"> kembalian</label>
+					  <div class="controls">
+						<input type="text" class="input-xlarge" id="kembalian" value="<?php echo $bayar-$jumlah_harga; ?>" name="kembalian" required />
 					  </div>
 					</div>
 					

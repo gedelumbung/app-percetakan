@@ -26,6 +26,7 @@ class laporan_pemesanan extends CI_Controller {
 			$d['mark_pembayaran'] = "";
 			$d['mark_jenis_cetakan'] = "";
 			$d['mark_jenis_satuan'] = "";
+			$d['mark_belum_lunas'] = "";
 			
 			$cari = $this->session->userdata("tgl_cari");
 			$d['dt_retrieve'] = $this->app_load_data_model->indexs_laporan_pemesanan($cari,$GLOBALS['site_limit_medium'],$uri);
@@ -54,6 +55,7 @@ class laporan_pemesanan extends CI_Controller {
 			$d['mark_pembayaran'] = "";
 			$d['mark_jenis_cetakan'] = "";
 			$d['mark_jenis_satuan'] = "";
+			$d['mark_belum_lunas'] = "";
 			
 			$cari = $this->session->userdata("bulan_cari");
 			$d['dt_retrieve'] = $this->app_load_data_model->indexs_laporan_pemesanan($cari,$GLOBALS['site_limit_medium'],$uri);

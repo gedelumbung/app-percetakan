@@ -22,14 +22,15 @@ class app_load_data_model extends CI_Model {
 					  <th>Actions</th>
 				  </tr>
 			  </thead>';
-			  
-		$tot_hal = $this->db->get("dlmbg_pelanggan");
+		
+		$where['nama_pelanggan']  = $this->session->userdata("key"); 
+		$tot_hal = $this->db->like($where)->get("dlmbg_pelanggan");
 		$config['base_url'] = base_url() . 'dashboard/pelanggan/index/';
 		$config['total_rows'] = $tot_hal->num_rows();
 		$config['per_page'] = $limit;
 		$config['uri_segment'] = 4;
 		$this->pagination->initialize($config);
-		$get = $this->db->order_by("kode_pelanggan","DESC")->get("dlmbg_pelanggan",$limit,$offset);
+		$get = $this->db->like($where)->order_by("kode_pelanggan","DESC")->get("dlmbg_pelanggan",$limit,$offset);
 		$i = $offset+1;
 		foreach($get->result() as $g)
 		{
@@ -68,14 +69,15 @@ class app_load_data_model extends CI_Model {
 					  <th>Actions</th>
 				  </tr>
 			  </thead>';
-			  
-		$tot_hal = $this->db->get("dlmbg_karyawan");
+		
+		$where['nama_karyawan']  = $this->session->userdata("key"); 	  
+		$tot_hal = $this->db->like($where)->get("dlmbg_karyawan");
 		$config['base_url'] = base_url() . 'dashboard/data_karyawan/index/';
 		$config['total_rows'] = $tot_hal->num_rows();
 		$config['per_page'] = $limit;
 		$config['uri_segment'] = 4;
 		$this->pagination->initialize($config);
-		$get = $this->db->order_by("id_karyawan","DESC")->get("dlmbg_karyawan",$limit,$offset);
+		$get = $this->db->like($where)->order_by("id_karyawan","DESC")->get("dlmbg_karyawan",$limit,$offset);
 		$i = $offset+1;
 		foreach($get->result() as $g)
 		{
@@ -164,14 +166,16 @@ class app_load_data_model extends CI_Model {
 					  <th>Actions</th>
 				  </tr>
 			  </thead>';
-			  
-		$tot_hal = $this->db->get("dlmbg_jenis_satuan");
+		
+
+		$where['satuan']  = $this->session->userdata("key"); 		  
+		$tot_hal = $this->db->like($where)->get("dlmbg_jenis_satuan");
 		$config['base_url'] = base_url() . 'dashboard/satuan/index/';
 		$config['total_rows'] = $tot_hal->num_rows();
 		$config['per_page'] = $limit;
 		$config['uri_segment'] = 4;
 		$this->pagination->initialize($config);
-		$get = $this->db->order_by("id_jenis_satuan","DESC")->get("dlmbg_jenis_satuan",$limit,$offset);
+		$get = $this->db->like($where)->order_by("id_jenis_satuan","DESC")->get("dlmbg_jenis_satuan",$limit,$offset);
 		$i = $offset+1;
 		foreach($get->result() as $g)
 		{
@@ -207,14 +211,16 @@ class app_load_data_model extends CI_Model {
 					  <th>Actions</th>
 				  </tr>
 			  </thead>';
-			  
-		$tot_hal = $this->db->get("dlmbg_jenis_cetakan");
+		
+
+		$where['nama_cetakan']  = $this->session->userdata("key"); 
+		$tot_hal = $this->db->like($where)->get("dlmbg_jenis_cetakan");
 		$config['base_url'] = base_url() . 'dashboard/jenis_cetakan/index/';
 		$config['total_rows'] = $tot_hal->num_rows();
 		$config['per_page'] = $limit;
 		$config['uri_segment'] = 4;
 		$this->pagination->initialize($config);
-		$get = $this->db->order_by("kode_jenis_cetakan","DESC")->get("dlmbg_jenis_cetakan",$limit,$offset);
+		$get = $this->db->like($where)->order_by("kode_jenis_cetakan","DESC")->get("dlmbg_jenis_cetakan",$limit,$offset);
 		$i = $offset+1;
 		foreach($get->result() as $g)
 		{
@@ -252,14 +258,15 @@ class app_load_data_model extends CI_Model {
 					  <th>Actions</th>
 				  </tr>
 			  </thead>';
-			  
-		$tot_hal = $this->db->get("dlmbg_user");
+
+		$where['nama_user']  = $this->session->userdata("key"); 
+		$tot_hal = $this->db->like($where)->get("dlmbg_user");
 		$config['base_url'] = base_url() . 'dashboard/pengguna/index/';
 		$config['total_rows'] = $tot_hal->num_rows();
 		$config['per_page'] = $limit;
 		$config['uri_segment'] = 4;
 		$this->pagination->initialize($config);
-		$get = $this->db->order_by("kode_user","DESC")->get("dlmbg_user",$limit,$offset);
+		$get = $this->db->like($where)->order_by("kode_user","DESC")->get("dlmbg_user",$limit,$offset);
 		$i=$offset+1;
 		foreach($get->result() as $g)
 		{
@@ -299,14 +306,15 @@ class app_load_data_model extends CI_Model {
 					  <th>Actions</th>
 				  </tr>
 			  </thead>';
-			  
-		$tot_hal = $this->db->get("dlmbg_jenis_cetakan");
+
+		$where['nama_cetakan']  = $this->session->userdata("key"); 
+		$tot_hal = $this->db->like($where)->get("dlmbg_jenis_cetakan");
 		$config['base_url'] = base_url() . 'dashboard/jenis_cetakan/index/';
 		$config['total_rows'] = $tot_hal->num_rows();
 		$config['per_page'] = $limit;
 		$config['uri_segment'] = 4;
 		$this->pagination->initialize($config);
-		$get = $this->db->query("select * from dlmbg_jenis_cetakan a left join dlmbg_jenis_satuan b on a.id_jenis_satuan=b.id_jenis_satuan limit ".$offset.",".$limit."");
+		$get = $this->db->query("select * from dlmbg_jenis_cetakan a left join dlmbg_jenis_satuan b on a.id_jenis_satuan=b.id_jenis_satuan where nama_cetakan like '%".$where['nama_cetakan']."%' limit ".$offset.",".$limit."");
 		$i = $offset+1;
 		foreach($get->result() as $g)
 		{
@@ -351,15 +359,26 @@ class app_load_data_model extends CI_Model {
 					  <th>Actions</th>
 				  </tr>
 			  </thead>';
-			  
-		$tot_hal = $this->db->get("dlmbg_pemesanan");
+		
+		if($this->session->userdata("key_search")=="")
+		{
+			$set['key_search'] = "nama_pelanggan";
+			$this->session->set_userdata($set);
+		}
+		$where[$this->session->userdata("key_search")]  = $this->session->userdata("key"); 	
+
+		$key = $this->session->userdata("key_search");
+		$val = $this->session->userdata("key");
+
+		$tot_hal = $this->db->query("select a.tgl_pesan, a.kode_pemesanan, b.alamat_pelanggan, a.tgl_selesai, b.nama_pelanggan, a.jumlah_harga, a.status_pembayaran, a.kode_pemesanan
+		 from dlmbg_pemesanan a left join dlmbg_pelanggan b on a.kode_pelanggan=b.kode_pelanggan where ".$key." like '%".$val."%'");
 		$config['base_url'] = base_url() . 'dashboard/pemesanan/index/';
 		$config['total_rows'] = $tot_hal->num_rows();
 		$config['per_page'] = $limit;
 		$config['uri_segment'] = 4;
 		$this->pagination->initialize($config);
 		$get = $this->db->query("select a.tgl_pesan, a.kode_pemesanan, b.alamat_pelanggan, a.tgl_selesai, b.nama_pelanggan, a.jumlah_harga, a.status_pembayaran, a.kode_pemesanan
-		 from dlmbg_pemesanan a left join dlmbg_pelanggan b on a.kode_pelanggan=b.kode_pelanggan LIMIT ".$offset.",".$limit."");
+		 from dlmbg_pemesanan a left join dlmbg_pelanggan b on a.kode_pelanggan=b.kode_pelanggan where ".$key." like '%".$val."%' LIMIT ".$offset.",".$limit."");
 		$i = $offset+1;
 		foreach($get->result() as $g)
 		{
@@ -382,15 +401,108 @@ class app_load_data_model extends CI_Model {
 					$hasil .= "</th>";
 					$hasil .='<td>'.number_format($g->jumlah_harga,2,",",".").'</td>
 					<td>'.$g->status_pembayaran.'</td>
-					<td class="center">
-						<a class="btn btn-info" href="'.base_url().'dashboard/pemesanan/edit/'.$g->kode_pemesanan.'" title="Edit">
+					<td class="center">';
+					if($this->session->userdata("level")=="admin")
+					{
+						$hasil .='	<a class="btn btn-info" href="'.base_url().'dashboard/pemesanan/edit/'.$g->kode_pemesanan.'" title="Edit">
 							<i class="halflings-icon edit halflings-icon"></i>  
-						</a>
-						<a class="btn btn-info" href="'.base_url().'dashboard/pemesanan/cetak/'.$g->kode_pemesanan.'" title="Cetak Kwitansi" target="_blank">
-							<i class="halflings-icon file halflings-icon"></i>  
 						</a>
 						<a class="btn btn-danger" href="'.base_url().'dashboard/pemesanan/hapus/'.$g->kode_pemesanan.'" onClick=\'return confirm("Anda yakin?");\' title="Hapus">
 							<i class="halflings-icon trash halflings-icon"></i> 
+						</a>';
+					}
+					$hasil .='<a class="btn btn-info" href="'.base_url().'dashboard/pemesanan/cetak/'.$g->kode_pemesanan.'" title="Cetak Kwitansi" target="_blank">
+							<i class="halflings-icon file halflings-icon"></i>  
+						</a>
+					</td>
+				</tr>';
+			$i++;
+		}
+		$hasil .= "</table>";
+		$hasil .= $this->pagination->create_links();
+		return $hasil;
+	}
+	 
+	public function indexs_data_belum_lunas($limit,$offset)
+	{
+		$hasil = "";
+		$hasil .= '
+			<table class="table table-striped table-bordered bootstrap-datatable datatable">
+			  <thead>
+				  <tr>
+					  <th>No.</th>
+					  <th>No. Nota</th>
+					  <th>Tanggal Pesan</th>
+					  <th>Tanggal Selesai</th>
+					  <th>Nama Pelanggan</th>
+					  <th>Alamat</th>
+					  <th>Jenis Cetakan</th>
+					  <th>Total Harga</th>
+					  <th>Uang Muka</th>
+					  <th>Sisa Bayar</th>
+					  <th>Status Pembayaran</th>
+					  <th>Actions</th>
+				  </tr>
+			  </thead>';
+		
+		
+		if($this->session->userdata("key_search")=="")
+		{
+			$set['key_search'] = "nama_pelanggan";
+			$this->session->set_userdata($set);
+		}
+		$where[$this->session->userdata("key_search")]  = $this->session->userdata("key"); 	
+
+		$key = $this->session->userdata("key_search");
+		$val = $this->session->userdata("key");
+
+		$tot_hal = $this->db->query("select a.tgl_pesan, uang_muka, a.kode_pemesanan, b.alamat_pelanggan, a.tgl_selesai, b.nama_pelanggan, a.jumlah_harga, a.status_pembayaran, a.kode_pemesanan
+		 from dlmbg_pemesanan a left join dlmbg_pelanggan b on a.kode_pelanggan=b.kode_pelanggan where ".$key." like '%".$val."%' and status_pembayaran='Belum Lunas'");
+
+		$config['base_url'] = base_url() . 'dashboard/pemesanan/index/';
+		$config['total_rows'] = $tot_hal->num_rows();
+		$config['per_page'] = $limit;
+		$config['uri_segment'] = 4;
+		$this->pagination->initialize($config);
+		$get = $this->db->query("select a.tgl_pesan, uang_muka, a.kode_pemesanan, b.alamat_pelanggan, a.tgl_selesai, b.nama_pelanggan, a.jumlah_harga, a.status_pembayaran, a.kode_pemesanan
+		 from dlmbg_pemesanan a left join dlmbg_pelanggan b on a.kode_pelanggan=b.kode_pelanggan where ".$key." like '%".$val."%' and status_pembayaran='Belum Lunas' LIMIT ".$offset.",".$limit."");
+		$i = $offset+1;
+		foreach($get->result() as $g)
+		{
+			$hasil .= ' <tbody>
+				<tr>
+					<td>'.$i.'</td>
+					<td>'.$g->kode_pemesanan.'</td>
+					<td>'.$g->tgl_pesan.'</td>
+					<td>'.$g->tgl_selesai.'</td>
+					<td>'.$g->nama_pelanggan.'</td>
+					<td>'.$g->alamat_pelanggan.'</td>';
+					$get_detail = $this->db->select("*")->join("dlmbg_jenis_cetakan","dlmbg_jenis_cetakan.kode_jenis_cetakan=dlmbg_pemesanan_detail.kode_jenis_cetakan")->get_where("dlmbg_pemesanan_detail",array("kode_pemesanan"=>$g->kode_pemesanan));
+					$hasil .= "<th>";
+
+					foreach($get_detail->result() as $gd)
+					{
+						$hasil .= "<li>".$gd->nama_cetakan."</li>";
+					}
+
+					$hasil .= "</th>";
+					$hasil .='<td>'.number_format($g->jumlah_harga,2,",",".").'</td>
+					<td>'.number_format($g->uang_muka,2,",",".").'</td>
+					<td>'.number_format($g->jumlah_harga-$g->uang_muka,2,",",".").'</td>
+					<td>'.$g->status_pembayaran.'</td>
+					<td class="center">';
+
+					if($this->session->userdata("level")=="admin")
+					{
+						$hasil .='	<a class="btn btn-info" href="'.base_url().'dashboard/pemesanan/edit/'.$g->kode_pemesanan.'" title="Edit">
+							<i class="halflings-icon edit halflings-icon"></i>  
+						</a>
+						<a class="btn btn-danger" href="'.base_url().'dashboard/pemesanan/hapus/'.$g->kode_pemesanan.'" onClick=\'return confirm("Anda yakin?");\' title="Hapus">
+							<i class="halflings-icon trash halflings-icon"></i> 
+						</a>';
+					}
+					$hasil .='	<a class="btn btn-info" href="'.base_url().'dashboard/pemesanan/cetak/'.$g->kode_pemesanan.'" title="Cetak Kwitansi" target="_blank">
+							<i class="halflings-icon file halflings-icon"></i>  
 						</a>
 					</td>
 				</tr>';
@@ -419,19 +531,34 @@ class app_load_data_model extends CI_Model {
 					  <th>Jenis Cetakan</th>
 					  <th>Total Harga</th>
 					  <th>Jumlah Bayar</th>
+					  <th>Status</th>
 					  <th>Actions</th>
 				  </tr>
 			  </thead>';
+		
+		
+		if($this->session->userdata("key_search")=="")
+		{
+			$set['key_search'] = "nama_pelanggan";
+			$this->session->set_userdata($set);
+		}
+		$where[$this->session->userdata("key_search")]  = $this->session->userdata("key"); 	
+
+		$key = $this->session->userdata("key_search");
+		$val = $this->session->userdata("key");
 			  
-		$tot_hal = $this->db->get("dlmbg_pembayaran");
-		$config['base_url'] = base_url() . 'dashboard/pemesanan/index/';
+		$tot_hal = $this->db->query("select a.kode_pemesanan, status_pembayaran, a.kode_pembayaran, b.tgl_pesan, b.tgl_selesai, a.tgl_bayar, a.bayar, b.nama_pelanggan, b.alamat_pelanggan, b.jumlah_harga 
+		from dlmbg_pembayaran a left join (select x.tgl_pesan, x.kode_pemesanan, x.tgl_selesai, y.nama_pelanggan, y.alamat_pelanggan, x.jumlah_harga, x.status_pembayaran 
+		from dlmbg_pemesanan x left join dlmbg_pelanggan y on x.kode_pelanggan=y.kode_pelanggan) b on a.kode_pemesanan=b.kode_pemesanan where ".$key." like '%".$val."%'");
+
+		$config['base_url'] = base_url() . 'dashboard/pembayaran/index/';
 		$config['total_rows'] = $tot_hal->num_rows();
 		$config['per_page'] = $limit;
 		$config['uri_segment'] = 4;
 		$this->pagination->initialize($config);
-		$get = $this->db->query("select x.kode_pemesanan, x.kode_pembayaran, y.tgl_pesan, y.tgl_selesai, x.tgl_bayar, x.bayar, y.nama_pelanggan, y.alamat_pelanggan, y.jumlah_harga 
-		from dlmbg_pembayaran x left join (select a.tgl_pesan, a.kode_pemesanan, a.tgl_selesai, b.nama_pelanggan, b.alamat_pelanggan, a.jumlah_harga, a.status_pembayaran 
-		from dlmbg_pemesanan a left join dlmbg_pelanggan b on a.kode_pelanggan=b.kode_pelanggan) y on x.kode_pemesanan=y.kode_pemesanan LIMIT ".$offset.",".$limit."");
+		$get = $this->db->query("select a.kode_pemesanan, status_pembayaran, a.kode_pembayaran, b.tgl_pesan, b.tgl_selesai, a.tgl_bayar, a.bayar, b.nama_pelanggan, b.alamat_pelanggan, b.jumlah_harga 
+		from dlmbg_pembayaran a left join (select x.tgl_pesan, x.kode_pemesanan, x.tgl_selesai, y.nama_pelanggan, y.alamat_pelanggan, x.jumlah_harga, x.status_pembayaran 
+		from dlmbg_pemesanan x left join dlmbg_pelanggan y on x.kode_pelanggan=y.kode_pelanggan) b on a.kode_pemesanan=b.kode_pemesanan where ".$key." like '%".$val."%' LIMIT ".$offset.",".$limit."");
 		$i = $offset+1;
 		foreach($get->result() as $g)
 		{
@@ -456,15 +583,20 @@ class app_load_data_model extends CI_Model {
 					$hasil .= "</th>";
 					$hasil .= '<td>'.number_format($g->jumlah_harga,2,",",".").'</td>
 					<td>'.number_format($g->bayar,2,",",".").'</td>
-					<td class="center">
-						<a class="btn btn-info" href="'.base_url().'dashboard/pembayaran/edit/'.$g->kode_pembayaran.'/'.$g->kode_pemesanan.'" title="Edit">
+					<td>'.$g->status_pembayaran.'</td>
+					<td class="center">';
+					if($this->session->userdata("level")=="admin")
+					{
+						$hasil .= '<a class="btn btn-info" href="'.base_url().'dashboard/pembayaran/edit/'.$g->kode_pembayaran.'/'.$g->kode_pemesanan.'" title="Edit">
 							<i class="halflings-icon edit halflings-icon"></i>  
-						</a>
-						<a class="btn btn-info" href="'.base_url().'dashboard/pemesanan/cetak/'.$g->kode_pemesanan.'" title="Cetak Kwitansi" target="_blank">
-							<i class="halflings-icon file halflings-icon"></i>  
 						</a>
 						<a class="btn btn-danger" href="'.base_url().'dashboard/pembayaran/hapus/'.$g->kode_pembayaran.'/'.$g->kode_pemesanan.'" onClick=\'return confirm("Anda yakin?");\' title="Hapus">
 							<i class="halflings-icon trash halflings-icon"></i> 
+						</a>';
+					}
+
+					$hasil .='<a class="btn btn-info" href="'.base_url().'dashboard/pemesanan/cetak/'.$g->kode_pemesanan.'" title="Cetak Kwitansi" target="_blank">
+							<i class="halflings-icon file halflings-icon"></i>  
 						</a>
 					</td>
 				</tr>';
@@ -638,7 +770,8 @@ class app_load_data_model extends CI_Model {
 	public function generate_index_sistem($limit,$offset)
 	{
 		$hasil="";
-		$tot_hal = $this->db->get("dlmbg_setting");
+		$where['title']  = $this->session->userdata("key"); 
+		$tot_hal = $this->db->like($where)->get("dlmbg_setting");
 
 		$config['base_url'] = base_url() . 'dashboard/sistem/index/';
 		$config['total_rows'] = $tot_hal->num_rows();
@@ -650,7 +783,7 @@ class app_load_data_model extends CI_Model {
 		$config['prev_link'] = 'Prev';
 		$this->pagination->initialize($config);
 
-		$w = $this->db->get("dlmbg_setting",$limit,$offset);
+		$w = $this->db->like($where)->get("dlmbg_setting",$limit,$offset);
 		
 		$hasil .= "<table class='table table-striped table-bordered bootstrap-datatable datatable'>
 					<thead>

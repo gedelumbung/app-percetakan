@@ -14,6 +14,7 @@ class data_karyawan extends CI_Controller {
 			$d['mark_pembayaran'] = "";
 			$d['mark_jenis_cetakan'] = "";
 			$d['mark_jenis_satuan'] = "";
+			$d['mark_belum_lunas'] = "";
 			
 			$d['dt_retrieve'] = $this->app_load_data_model->indexs_data_karyawan($GLOBALS['site_limit_medium'],$uri);
 			
@@ -40,6 +41,7 @@ class data_karyawan extends CI_Controller {
 			$d['mark_pembayaran'] = "";
 			$d['mark_jenis_cetakan'] = "";
 			$d['mark_jenis_satuan'] = "";
+			$d['mark_belum_lunas'] = "";
 			
 			$d['id_param'] = "";
 			$d['nama_karyawan'] = "";
@@ -70,6 +72,7 @@ class data_karyawan extends CI_Controller {
 			$d['mark_pembayaran'] = "";
 			$d['mark_jenis_cetakan'] = "";
 			$d['mark_jenis_satuan'] = "";
+			$d['mark_belum_lunas'] = "";
 			
 			$id['id_karyawan'] = $id_param;
 			$get = $this->db->get_where("dlmbg_karyawan",$id)->row();
@@ -110,6 +113,20 @@ class data_karyawan extends CI_Controller {
 				$this->db->update("dlmbg_karyawan",$dt,$id);
 				redirect("dashboard/data_karyawan");
 			}
+		}
+		else
+		{
+			redirect("login");
+		}
+	}
+
+	function set()
+	{
+		if($this->session->userdata("logged_in")!="")
+		{
+			$set['key'] = $_POST['key'];
+			$this->session->set_userdata($set);
+			redirect("dashboard/data_karyawan");
 		}
 		else
 		{

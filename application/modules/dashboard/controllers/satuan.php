@@ -14,6 +14,7 @@ class satuan extends CI_Controller {
 			$d['mark_pembayaran'] = "";
 			$d['mark_jenis_cetakan'] = "";
 			$d['mark_jenis_satuan'] = "active";
+			$d['mark_belum_lunas'] = "";
 			
 			$d['dt_retrieve'] = $this->app_load_data_model->indexs_data_satuan($GLOBALS['site_limit_medium'],$uri);
 			
@@ -40,6 +41,7 @@ class satuan extends CI_Controller {
 			$d['mark_pembayaran'] = "";
 			$d['mark_jenis_cetakan'] = "";
 			$d['mark_jenis_satuan'] = "active";
+			$d['mark_belum_lunas'] = "";
 			
 			$d['id_param'] = "";
 			$d['satuan'] = "";
@@ -68,6 +70,7 @@ class satuan extends CI_Controller {
 			$d['mark_pembayaran'] = "";
 			$d['mark_jenis_cetakan'] = "";
 			$d['mark_jenis_satuan'] = "active";
+			$d['mark_belum_lunas'] = "";
 			
 			$id['id_jenis_satuan'] = $id_param;
 			$get = $this->db->get_where("dlmbg_jenis_satuan",$id)->row();
@@ -104,6 +107,20 @@ class satuan extends CI_Controller {
 				$this->db->update("dlmbg_jenis_satuan",$dt,$id);
 				redirect("dashboard/satuan");
 			}
+		}
+		else
+		{
+			redirect("login");
+		}
+	}
+
+	function set()
+	{
+		if($this->session->userdata("logged_in")!="")
+		{
+			$set['key'] = $_POST['key'];
+			$this->session->set_userdata($set);
+			redirect("dashboard/satuan");
 		}
 		else
 		{

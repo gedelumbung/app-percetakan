@@ -14,6 +14,7 @@ class pemesanan extends CI_Controller {
 			$d['mark_pembayaran'] = "";
 			$d['mark_jenis_cetakan'] = "";
 			$d['mark_jenis_satuan'] = "";
+			$d['mark_belum_lunas'] = "";
 			
 			$d['dt_retrieve'] = $this->app_load_data_model->indexs_data_pemesanan($GLOBALS['site_limit_medium'],$uri);
 			$this->session->unset_userdata('kode_pelanggan');
@@ -45,6 +46,7 @@ class pemesanan extends CI_Controller {
 			$d['mark_pembayaran'] = "";
 			$d['mark_jenis_cetakan'] = "";
 			$d['mark_jenis_satuan'] = "";
+			$d['mark_belum_lunas'] = "";
 			
 			$d['no_nota'] = $this->app_load_data_model->getMaxKodePesanan();
 			$d['pelanggan'] = $this->db->get("dlmbg_pelanggan");
@@ -170,6 +172,7 @@ class pemesanan extends CI_Controller {
 			$d['mark_pembayaran'] = "";
 			$d['mark_jenis_cetakan'] = "";
 			$d['mark_jenis_satuan'] = "";
+			$d['mark_belum_lunas'] = "";
 			
 			$d['no_nota'] = $id_param;
 			$get_head = $this->db->get_where("dlmbg_pemesanan",array("kode_pemesanan"=>$id_param))->row();
@@ -225,6 +228,7 @@ class pemesanan extends CI_Controller {
 			$d['mark_pembayaran'] = "";
 			$d['mark_jenis_cetakan'] = "";
 			$d['mark_jenis_satuan'] = "";
+			$d['mark_belum_lunas'] = "";
 			
 			$cek = $this->db->get_where("dlmbg_pembayaran",array("kode_pemesanan"=>$id_param))->num_rows();
 			if($cek>0)
@@ -287,7 +291,10 @@ class pemesanan extends CI_Controller {
 			$d_header['kode_pelanggan'] = $this->input->post('kode_pelanggan');
 			$d_header['jumlah_harga'] = $this->input->post('jumlah_harga');
 			$d_header['uang_muka'] = $this->input->post('uang_muka');
-			$d_header['status_pembayaran'] = $this->input->post('status_pembayaran');
+			if($d_header['uang_muka']>=$d_header['jumlah_harga'])
+			{
+				$d_header['status_pembayaran'] = "Lunas";
+			}
 			
 			$this->db->insert("dlmbg_pemesanan",$d_header);
 			foreach($this->cart->contents() as $items)
@@ -320,8 +327,13 @@ class pemesanan extends CI_Controller {
 			$d_header['tgl_bayar'] = $this->input->post('tgl_bayar');
 			$d_header['bayar'] = $this->input->post('bayar');
 			
-			$up['status_pembayaran'] = $this->input->post('status_pembayaran');
-			$this->db->update("dlmbg_pemesanan",$up,array("kode_pemesanan" => $d_header['kode_pemesanan']));
+			$jumlah_harga = $this->input->post('jumlah_harga');
+			if($d_header['bayar']>=$jumlah_harga)
+			{
+				$up['status_pembayaran'] = "Lunas";
+				$this->db->update("dlmbg_pemesanan",$up,array("kode_pemesanan" => $d_header['kode_pemesanan']));
+			}
+			
 			
 			$this->db->insert("dlmbg_pembayaran",$d_header);
 			$this->session->unset_userdata('kode_pelanggan');
@@ -348,7 +360,11 @@ class pemesanan extends CI_Controller {
 			$d_header['kode_pelanggan'] = $this->input->post('kode_pelanggan');
 			$d_header['jumlah_harga'] = $this->input->post('jumlah_harga');
 			$d_header['uang_muka'] = $this->input->post('uang_muka');
-			$d_header['status_pembayaran'] = $this->input->post('status_pembayaran');
+			
+			if($d_header['uang_muka']>=$d_header['jumlah_harga'])
+			{
+				$d_header['status_pembayaran'] = "Lunas";
+			}
 			
 			$this->db->update("dlmbg_pemesanan",$d_header,$id_up);
 			$this->db->delete("dlmbg_pemesanan_detail",$id_up);
@@ -417,6 +433,21 @@ class pemesanan extends CI_Controller {
 		{
 			$id['jumlah_harga'] = $_GET['jumlah_harga'];
 			$this->session->set_userdata($id);
+		}
+		else
+		{
+			redirect("login");
+		}
+	}
+
+	function set()
+	{
+		if($this->session->userdata("logged_in")!="")
+		{
+			$set['key'] = $_POST['key'];
+			$set['key_search'] = $_POST['key_search'];
+			$this->session->set_userdata($set);
+			redirect("dashboard/pemesanan");
 		}
 		else
 		{

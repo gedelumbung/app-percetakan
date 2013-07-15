@@ -14,6 +14,7 @@ class sistem extends CI_Controller {
 			$d['mark_pembayaran'] = "";
 			$d['mark_jenis_cetakan'] = "";
 			$d['mark_jenis_satuan'] = "";
+			$d['mark_belum_lunas'] = "";
 			
 			$d['dt_retrieve'] = $this->app_load_data_model->generate_index_sistem($GLOBALS['site_limit_medium'],$uri);
 			
@@ -40,6 +41,7 @@ class sistem extends CI_Controller {
 			$d['mark_pembayaran'] = "";
 			$d['mark_jenis_cetakan'] = "";
 			$d['mark_jenis_satuan'] = "";
+			$d['mark_belum_lunas'] = "";
 			
 			$where['id_setting'] = $id_param;
 			$get = $this->db->get_where("dlmbg_setting",$where)->row();
@@ -60,6 +62,20 @@ class sistem extends CI_Controller {
 			redirect("auth/user_login");
 		}
    }
+
+	function set()
+	{
+		if($this->session->userdata("logged_in")!="")
+		{
+			$set['key'] = $_POST['key'];
+			$this->session->set_userdata($set);
+			redirect("dashboard/sistem");
+		}
+		else
+		{
+			redirect("login");
+		}
+	}
  
    public function simpan()
    {
@@ -73,6 +89,7 @@ class sistem extends CI_Controller {
 			$d['mark_pembayaran'] = "";
 			$d['mark_jenis_cetakan'] = "";
 			$d['mark_jenis_satuan'] = "";
+			$d['mark_belum_lunas'] = "";
 			
 			$id['id_setting'] = $this->input->post("id_param");
 			$in['tipe'] = $this->input->post("tipe");

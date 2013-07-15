@@ -14,6 +14,7 @@ class pengguna extends CI_Controller {
 			$d['mark_pembayaran'] = "";
 			$d['mark_jenis_cetakan'] = "";
 			$d['mark_jenis_satuan'] = "";
+			$d['mark_belum_lunas'] = "";
 			
 			$d['dt_retrieve'] = $this->app_load_data_model->indexs_data_pengguna($GLOBALS['site_limit_medium'],$uri);
 			
@@ -40,6 +41,7 @@ class pengguna extends CI_Controller {
 			$d['mark_pembayaran'] = "";
 			$d['mark_jenis_cetakan'] = "";
 			$d['mark_jenis_satuan'] = "";
+			$d['mark_belum_lunas'] = "";
 			
 			$d['id_param'] = "";
 			$d['nama_user'] = "";
@@ -70,6 +72,7 @@ class pengguna extends CI_Controller {
 			$d['mark_pembayaran'] = "";
 			$d['mark_jenis_cetakan'] = "";
 			$d['mark_jenis_satuan'] = "";
+			$d['mark_belum_lunas'] = "";
 			
 			$id['kode_user'] = $id_param;
 			$get = $this->db->get_where("dlmbg_user",$id)->row();
@@ -119,6 +122,20 @@ class pengguna extends CI_Controller {
 				}
 				redirect("dashboard/pengguna");
 			}
+		}
+		else
+		{
+			redirect("login");
+		}
+	}
+
+	function set()
+	{
+		if($this->session->userdata("logged_in")!="")
+		{
+			$set['key'] = $_POST['key'];
+			$this->session->set_userdata($set);
+			redirect("dashboard/pengguna");
 		}
 		else
 		{

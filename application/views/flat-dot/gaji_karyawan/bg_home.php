@@ -12,6 +12,7 @@
 			<input type="submit" value="Lihat Gaji" class="btn btn-small" />
 			<?php echo form_close(); ?>
 			<?php echo $dt_retrieve; ?>
+			<span class="label label-success">JUMLAH DATA : <?php echo $this->db->get("dlmbg_gaji_karyawan")->num_rows(); ?></span>
 		</div>
 	</div>
 

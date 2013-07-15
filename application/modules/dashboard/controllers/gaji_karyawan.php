@@ -14,6 +14,7 @@ class gaji_karyawan extends CI_Controller {
 			$d['mark_pembayaran'] = "";
 			$d['mark_jenis_cetakan'] = "";
 			$d['mark_jenis_satuan'] = "";
+			$d['mark_belum_lunas'] = "";
 			
 			$cari = $this->session->userdata("bulan_cari");
 			$d['dt_retrieve'] = $this->app_load_data_model->indexs_gaji_karyawan($cari,$GLOBALS['site_limit_medium'],$uri);
@@ -42,6 +43,7 @@ class gaji_karyawan extends CI_Controller {
 			$d['mark_pembayaran'] = "";
 			$d['mark_jenis_cetakan'] = "";
 			$d['mark_jenis_satuan'] = "";
+			$d['mark_belum_lunas'] = "";
 			
 			$d['id_param'] = "";
 			$d['id_karyawan'] = "";
@@ -73,6 +75,7 @@ class gaji_karyawan extends CI_Controller {
 			$d['mark_pembayaran'] = "";
 			$d['mark_jenis_cetakan'] = "";
 			$d['mark_jenis_satuan'] = "";
+			$d['mark_belum_lunas'] = "";
 			
 			$id['id_gaji_karyawan'] = $id_param;
 			$get = $this->db->get_where("dlmbg_gaji_karyawan",$id)->row();

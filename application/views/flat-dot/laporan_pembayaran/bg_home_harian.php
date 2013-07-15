@@ -12,6 +12,7 @@
 			<input type="submit" value="Lihat Laporan" class="btn btn-small" />
 			<?php echo form_close(); ?>
 			<?php echo $dt_retrieve; ?>
+			<span class="label label-success">JUMLAH DATA : <?php echo $this->db->get("dlmbg_pembayaran")->num_rows(); ?></span>
 		</div>
 	</div>
 

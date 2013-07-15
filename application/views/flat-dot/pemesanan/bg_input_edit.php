@@ -129,15 +129,7 @@ function hitSisa()
 				<div class="control-group">
 				  <label class="control-label">Status Pembayaran</label>
 				  <div class="controls">
-				  <?php $l=''; $bl='';
-				  if($status_pembayaran=="Lunas"){$l='selected'; $bl='';}
-				  else if($status_pembayaran=="Belum Lunas"){$l=''; $bl='selected';}
-				 	?>
-					<select data-placeholder="Status Pembayaran..." class="chzn-select2" style="width:200px;" tabindex="2" name="status_pembayaran" id="status_pembayaran">
-          				<option value=""></option> 
-						<option value="Belum Lunas" <?php echo $bl; ?>>Belum Lunas</option> 
-						<option value="Lunas" <?php echo $l; ?>>Lunas</option> 
-					</select>
+				  <?php echo $status_pembayaran; ?>
 				  </div>
 				</div>
 				

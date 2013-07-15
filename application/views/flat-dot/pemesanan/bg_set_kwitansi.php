@@ -1,4 +1,12 @@
-
+<script type="text/javascript">
+function hitSisa()
+{
+	var total = document.getElementById("jumlah_harga").value;
+	var bayar = document.getElementById("bayar").value;
+	var sisa = eval(bayar-total);
+	document.frm_pesan.kembalian.value = sisa;
+}
+</script>
 	<div id="content" class="span11">
 	<div class="row-fluid sortable">		
 		<div class="box span12">
@@ -7,7 +15,7 @@
 				Form Pembayaran</h2>
 			</div>
 			<div class="box-content">
-				<?php echo form_open("dashboard/pemesanan/simpan_pembayaran",'class="form-horizontal"'); ?>
+				<?php echo form_open("dashboard/pemesanan/simpan_pembayaran",'class="form-horizontal" name="frm_pesan" '); ?>
 				  <fieldset>
 				  
 					<div class="control-group">
@@ -91,14 +99,21 @@
 					<div class="control-group">
 					  <label class="control-label">Jumlah Bayar</label>
 					  <div class="controls">
-						<input type="text" class="input-xlarge" id="jumlah_harga" value="<?php echo $jumlah_harga; ?>" name="jumlah_harga" required disabled="disabled" />
+						<input type="text" class="input-xlarge" id="jumlah_harga" value="<?php echo $jumlah_harga; ?>" name="jumlah_harga" required readonly />
 					  </div>
 					</div>
 				  
 					<div class="control-group">
 					  <label class="control-label">Bayar</label>
 					  <div class="controls">
-						<input type="text" class="input-xlarge" id="bayar" name="bayar" required />
+						<input type="text" class="input-xlarge" id="bayar" onChange=hitSisa(); name="bayar" required />
+					  </div>
+					</div>
+				  
+					<div class="control-group">
+					  <label class="control-label"> kembalian</label>
+					  <div class="controls">
+						<input type="text" class="input-xlarge" id="kembalian" value="" name="kembalian" required />
 					  </div>
 					</div>
 					
@@ -134,15 +149,7 @@
 				<div class="control-group">
 				  <label class="control-label">Status Pembayaran</label>
 				  <div class="controls">
-				  <?php $l=''; $bl='';
-				  if($status_pembayaran=="Lunas"){$l='selected'; $bl='';}
-				  else if($status_pembayaran=="Belum Bayar"){$l=''; $bl='selected';}
-				 	?>
-					<select data-placeholder="Status Pembayaran..." class="chzn-select2" style="width:200px;" tabindex="2" name="status_pembayaran" id="status_pembayaran">
-          				<option value=""></option> 
-						<option value="Belum Bayar" <?php echo $bl; ?>>Belum Bayar</option> 
-						<option value="Lunas" <?php echo $l; ?>>Lunas</option> 
-					</select>
+				  <?php echo $status_pembayaran; ?>
 				  </div>
 				</div>
 				
